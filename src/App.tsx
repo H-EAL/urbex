@@ -9,7 +9,7 @@ import {
     LivelinkContext,
     ViewportContext,
 } from "@3dverse/livelink-react";
-import { LoadingOverlay } from "@3dverse/livelink-react-ui";
+import { PerformancePanel, LoadingOverlay } from "@3dverse/livelink-react-ui";
 
 //------------------------------------------------------------------------------
 import "./App.css";
@@ -73,6 +73,14 @@ function AppLayout() {
         <Canvas className="w-full h-full">
             <Viewport cameraEntity={cameraEntity} className="w-full h-full">
                 {startSimulation && <SimulationStarter />}
+                <div
+                    className={`absolute top-[5vh] right-[5vw] w-40 px-4 py-2 text-amber-100
+                            bg-[color-mix(in_srgb,var(--color-bg-foreground)_95%,transparent)]
+                            backdrop-blur-xl rounded-lg shadow-[0px_24px_40px_10px_color-mix(in_srgb,black_40%,transparent)]
+                        `}
+                >
+                    <PerformancePanel />
+                </div>
             </Viewport>
         </Canvas>
     );
