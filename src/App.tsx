@@ -73,6 +73,7 @@ function AppLayout() {
         <Canvas className="w-full h-full">
             <Viewport cameraEntity={cameraEntity} className="w-full h-full">
                 {startSimulation && <SimulationStarter />}
+                <InfoPanel />
                 <div
                     className={`absolute top-[5vh] right-[5vw] w-40 px-4 py-2 text-amber-100
                             bg-[color-mix(in_srgb,var(--color-bg-foreground)_95%,transparent)]
@@ -83,6 +84,40 @@ function AppLayout() {
                 </div>
             </Viewport>
         </Canvas>
+    );
+}
+
+//------------------------------------------------------------------------------
+function InfoPanel() {
+    return (
+        <div
+            className={`absolute top-[5vh] left-[5vw] w-60 px-4 py-2 text-amber-100
+                    bg-[color-mix(in_srgb,var(--color-bg-foreground)_95%,transparent)]
+                    backdrop-blur-xl rounded-lg shadow-[0px_24px_40px_10px_color-mix(in_srgb,black_40%,transparent)]
+                `}
+        >
+            <h3 className="font-semibold mb-2">Controls</h3>
+            <ul className="list-disc list-inside text-sm">
+                <li>
+                    <kbd>WASD</kbd>: Move
+                </li>
+                <li>
+                    <kbd>Mouse</kbd>: Look Around
+                </li>
+                <li>
+                    <kbd>Shift</kbd>: Sprint
+                </li>
+                <li>
+                    <kbd>Space</kbd>: Jump
+                </li>
+                <li>
+                    <kbd>C</kbd>: Crouch
+                </li>
+                <li>
+                    <kbd>X</kbd>: Toggle Light
+                </li>
+            </ul>
+        </div>
     );
 }
 
