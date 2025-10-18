@@ -11,6 +11,7 @@ import {
     useClients,
 } from "@3dverse/livelink-react";
 import { PerformancePanel, LoadingOverlay, VirtualGamepad } from "@3dverse/livelink-react-ui";
+import introImage from "./assets/menu.png"; // Import the intro image
 
 //------------------------------------------------------------------------------
 import "./App.css";
@@ -34,13 +35,21 @@ export function App() {
 
     if (!gameStarted) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-gray-900">
-                <button
+            <div
+                className="flex items-center justify-center min-h-screen bg-gray-900"
+                style={{
+                    backgroundImage: `url(${introImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                }}
+            >
+                <a
                     onClick={handleStartGame}
-                    className="px-8 py-4 text-xl font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-lg shadow-lg transition-colors"
+                    className="text-amber-300 text-4xl font-bold cursor-pointer text-shadow-lg"
                 >
-                    Start Game
-                </button>
+                    Start Exploring
+                </a>
             </div>
         );
     }
