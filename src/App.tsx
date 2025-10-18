@@ -8,8 +8,9 @@ import {
     Viewport,
     LivelinkContext,
     ViewportContext,
+    useClients,
 } from "@3dverse/livelink-react";
-import { PerformancePanel, LoadingOverlay } from "@3dverse/livelink-react-ui";
+import { PerformancePanel, LoadingOverlay, VirtualGamepad } from "@3dverse/livelink-react-ui";
 
 //------------------------------------------------------------------------------
 import "./App.css";
@@ -31,6 +32,8 @@ export function App() {
 //------------------------------------------------------------------------------
 function AppLayout() {
     const { instance } = useContext(LivelinkContext);
+
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
     useEffect(() => {
         if (!instance) {
@@ -74,6 +77,7 @@ function AppLayout() {
             <Viewport cameraEntity={cameraEntity} className="w-full h-full">
                 {startSimulation && <SimulationStarter />}
                 <InfoPanel />
+                <PlayerCount />
                 <div
                     className={`absolute top-[5vh] right-[5vw] w-40 px-4 py-2 text-amber-100
                             bg-[color-mix(in_srgb,var(--color-bg-foreground)_95%,transparent)]
@@ -82,8 +86,23 @@ function AppLayout() {
                 >
                     <PerformancePanel />
                 </div>
+                {isMobile && <VirtualGamepad />}
             </Viewport>
         </Canvas>
+    );
+}
+
+//------------------------------------------------------------------------------
+function PlayerCount() {
+    const { clients } = useClients();
+
+    return (
+        <div className="absolute bottom-[5vh] left-[5vh]] select-none  p-4">
+            <h3 className="font-semibold mb-2 text-center text-2xl text-gray-400">
+                Other Explorer{clients.length === 1 ? "" : "s"}
+            </h3>
+            <h2 className="font-bold text-6xl text-center text-amber-300">{clients.length}</h2>
+        </div>
     );
 }
 
@@ -91,7 +110,7 @@ function AppLayout() {
 function InfoPanel() {
     return (
         <div
-            className={`absolute top-[5vh] left-[5vw] w-60 px-4 py-2 text-amber-100
+            className={`absolute top-[5vh] left-[5vw] w-80 px-4 py-2 text-amber-100
                     bg-[color-mix(in_srgb,var(--color-bg-foreground)_95%,transparent)]
                     backdrop-blur-xl rounded-lg shadow-[0px_24px_40px_10px_color-mix(in_srgb,black_40%,transparent)]
                 `}
@@ -99,22 +118,22 @@ function InfoPanel() {
             <h3 className="font-semibold mb-2">Controls</h3>
             <ul className="list-disc list-inside text-sm">
                 <li>
-                    <kbd>WASD</kbd>: Move
+                    <kbd>WASD</kbd> / <kbd>Left Joystick</kbd>: Move
                 </li>
                 <li>
-                    <kbd>Mouse</kbd>: Look Around
+                    <kbd>Mouse</kbd> / <kbd>Right Joystick</kbd>: Look Around
                 </li>
                 <li>
-                    <kbd>Shift</kbd>: Sprint
+                    <kbd>Shift</kbd> / <kbd>Right Trigger</kbd>: Sprint
                 </li>
                 <li>
-                    <kbd>Space</kbd>: Jump
+                    <kbd>Space</kbd> / <kbd>A</kbd>: Jump
                 </li>
                 <li>
-                    <kbd>C</kbd>: Crouch
+                    <kbd>C</kbd> / <kbd>Left Trigger</kbd>: Crouch
                 </li>
                 <li>
-                    <kbd>X</kbd>: Toggle Light
+                    <kbd>E</kbd> / <kbd>Y</kbd>: Toggle Light
                 </li>
             </ul>
         </div>
