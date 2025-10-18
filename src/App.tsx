@@ -22,6 +22,34 @@ const characterControllerSceneUUID = "7392872d-6fb6-43a2-a8a2-8dc8f1afd014";
 
 //------------------------------------------------------------------------------
 export function App() {
+    const [gameStarted, setGameStarted] = useState(false);
+
+    const handleStartGame = () => {
+        // Request fullscreen
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        }
+        setGameStarted(true);
+    };
+
+    if (!gameStarted) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-900">
+                <button
+                    onClick={handleStartGame}
+                    className="px-8 py-4 text-xl font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-lg shadow-lg transition-colors"
+                >
+                    Start Game
+                </button>
+            </div>
+        );
+    }
+
+    return <Game />;
+}
+
+//------------------------------------------------------------------------------
+function Game() {
     return (
         <Livelink sceneId={scene_id} token={token} LoadingPanel={LoadingOverlay}>
             <AppLayout />
@@ -99,7 +127,7 @@ function PlayerCount() {
     return (
         <div className="absolute bottom-[5vh] left-[5vh]] select-none  p-4">
             <h3 className="font-semibold mb-2 text-center text-2xl text-gray-400">
-                Other Explorer{clients.length === 1 ? "" : "s"}
+                Other Explorer{clients.length <= 1 ? "" : "s"}
             </h3>
             <h2 className="font-bold text-6xl text-center text-amber-300">{clients.length}</h2>
         </div>
