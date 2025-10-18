@@ -81,7 +81,7 @@ function AppLayout() {
             const playerSceneEntity = await instance.scene.newEntity({
                 name: "PlayerSceneEntity",
                 components: {
-                    local_transform: { position: [0, 1.7, 0] },
+                    local_transform: { position: [0, 0, 0] },
                     scene_ref: { value: characterControllerSceneUUID },
                 },
                 options: {
